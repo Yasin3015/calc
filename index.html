@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         * {
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        body {
+            background-color: black;
+            text-align: center;
+            height: 100vh;
+            background: #3494e6;
+            background: linear-gradient(to bottom, #3494e6, #ec6ead);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .calc {
+            width: 400px;
+            margin: auto;
+            margin-top: 5%;
+            padding: 10px;
+            border: 1px solid white;
+            border-radius: 3px;
+        }
+
+        .calc .text {
+            border: 1px solid white;
+            box-sizing: border-box;
+            height: 80px;
+            width: 99%;
+            border-radius: 2px;
+            margin-bottom: 10px;
+        }
+
+        .calc .text input {
+            height: 50%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            color: white;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+            padding: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        #valuee {
+            text-align: left;
+        }
+
+        #output {
+            text-align: right;
+        }
+
+        .calc .buttons {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .calc .buttons input {
+            height: 100px;
+            width: 100px;
+            padding: 20px;
+            font-size: 30px;
+            box-sizing: border-box;
+            cursor: pointer;
+            outline: 0px;
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            color: white;
+        }
+
+        .calc .buttons input:hover {
+            background-color: rgba(231, 230, 230, 0.493);
+            border-radius: 3px;
+            border: 1px solid white;
+        }
+
+        @media (max-width: 450px) {
+            .calc {
+                width: 260px;
+            }
+
+            .calc .buttons input {
+                width: calc(260px/4);
+                height: calc(260px/4);
+            }
+          #ans{
+            padding-left:0px;
+          }
+          #clear{
+            padding-left:0px;
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="calc">
+        <form name="calcform">
+            <div class="text">
+                <input type="text" placeholder="0" id="valuee" name="screen" value="">
+                <input type="text" placeholder="0" id="output" disabled value="">
+            </div>
+            <div class="buttons">
+                <div><input type="button" class="button" value="(" data-index="1" onclick="calcform.screen.value+= '('">
+                </div>
+                <div><input class="button" type="button" value=")" data-index="2" onclick="calcform.screen.value+= ')'">
+                </div>
+                <div><input class="button" type="button" value="DEL" id="clear" data-index="3"></div>
+                <div><input class="button" type="button" value="/" data-index="4" onclick="calcform.screen.value+= '/'">
+                </div>
+                <div><input class="button nom" type="button" value="1" data-index="5"
+                        onclick="calcform.screen.value+= '1'"></div>
+                <div><input class="button nom" type="button" value="2" data-index="6"
+                        onclick="calcform.screen.value+= '2'"></div>
+                <div><input class="button nom" type="button" value="3" data-index="7"
+                        onclick="calcform.screen.value+= '3'"></div>
+                <div><input class="button" type="button" value="*" data-index="8" onclick="calcform.screen.value+= '*'">
+                </div>
+                <div><input class="button nom" type="button" value="4" data-index="9"
+                        onclick="calcform.screen.value+= '4'"></div>
+                <div><input class="button nom" type="button" value="5" data-index="10"
+                        onclick="calcform.screen.value+= '5'"></div>
+                <div><input class="button nom" type="button" value="6" data-index="11"
+                        onclick="calcform.screen.value+= '6'"></div>
+                <div><input class="button" type="button" value="-" data-index="12"
+                        onclick="calcform.screen.value+= '-'"></div>
+                <div><input class="button nom" type="button" value="7" data-index="13"
+                        onclick="calcform.screen.value+= '7'"></div>
+                <div><input class="button nom" type="button" value="8" data-index="14"
+                        onclick="calcform.screen.value+= '8'"></div>
+                <div><input class="button nom" type="button" value="9" data-index="15"
+                        onclick="calcform.screen.value+= '9'"></div>
+                <div><input class="button" type="button" value="+" data-index="16"
+                        onclick="calcform.screen.value+= '+'"></div>
+                <div><input class="button" type="button" value="0" data-index="17"
+                        onclick="calcform.screen.value+= '0'"></div>
+                <div><input class="button" type="button" value="." data-index="18"
+                        onclick="calcform.screen.value+= '.'"></div>
+                <div><input class="button" type="button" value="ANS" id="ans" data-index="19"></div>
+                <div><input class="button" type="button" value="=" id="equal" data-index="20"></div>
+            </div>
+        </form>
+    </div>
+    <script>
+        var screenvalue = document.getElementById("valuee"),
+            screenoutput = document.getElementById("output"),
+            equalbutton = document.getElementById("equal"),
+            deletebutton = document.getElementById("clear"),
+            ans = document.getElementById("ans");
+        // get the value of the operation 
+        equalbutton.onclick = function () {
+            screenoutput.value = eval(screenvalue.value);
+        }
+        // delete the numbers 
+        deletebutton.onclick = function () {
+            screenoutput.value = "";
+            screenvalue.value = "";
+        }
+        // using last answer
+        ans.onclick=function(){
+            screenvalue.value=screenoutput.value;
+            screenoutput.value="";
+        }
+        // using enter button 
+        screenvalue.onkeydown = function(){
+            if (event.keyCode === 13) {
+                screenoutput.value = eval(screenvalue.value);
+                
+            }
+        }
+    </script>
+</body>
+</html>
